@@ -26,7 +26,7 @@ const registerUser = asyncHandler(async (req, res) => {
     password: hashedPassword,
   });
 
-  res.json({ user });
+  res.json({ registered: user });
 });
 
 //@desc Reigister the user
@@ -50,7 +50,7 @@ const loginUser = asyncHandler(async (req, res) => {
         },
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "1m" }
+      { expiresIn: "15m" }
     );
     res.json({ accessToken });
   } else {
@@ -60,9 +60,9 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 //@desc Reigister the user
 //@route POST /api/users/register
-//@access public
+//@access private
 const currentUser = asyncHandler(async (req, res) => {
-  res.json({ msg: "Current user information" });
+  res.json({ currentUser: req.user });
 });
 
 module.exports = { registerUser, loginUser, currentUser };
